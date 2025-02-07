@@ -1,0 +1,36 @@
+{
+  "name": "@activehue/hue-node-integration",
+  "version": "1.0.0",
+  "description": "A TypeScript package for Philips Hue Bridge Api v2 integration for Node.js. Supports esm and cjs",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module esnext --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "start": "node dist/cjs/index.js",
+    "start:dev": "ts-node src/example/example.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "philips-hue",
+    "typescript",
+    "bridge",
+    "esm",
+    "cjs"
+  ],
+  "author": "ActiveHue",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.0.3",
+    "eventsource": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3"
+  }
+}

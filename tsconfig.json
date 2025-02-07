@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",              // Default for ESM builds
+    "moduleResolution": "Node",
+    "outDir": "./dist/esm",          // Default output directory
+    "declaration": true,            // Generate type declarations
+    "declarationDir": "./dist/types",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
