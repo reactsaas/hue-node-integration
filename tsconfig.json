@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",              // Default for ESM builds
-    "moduleResolution": "Node",
-    "outDir": "./dist/esm",          // Default output directory
+    "target": "ES2020",             // Modern JavaScript
+    "module": "ESNext",             // ES Module output
+    "moduleResolution": "Node",     // Node.js-style module resolution
     "declaration": true,            // Generate type declarations
-    "declarationDir": "./dist/types",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "sourceMap": true
+    "strict": true,                 // Enable strict type-checking
+    "esModuleInterop": true,        // Enable ES Module interop
+    "skipLibCheck": true,           // Skip type-checking for libraries
+    "sourceMap": true               // Enable source maps
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],          // Include source files
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary files
 }

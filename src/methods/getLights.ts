@@ -22,8 +22,6 @@ export async function getLights(axiosInstance: AxiosInstance): Promise<any[]> {
         isOn: light?.on?.on ? true : false,
         brightness: light?.dimming?.brightness || "N/A",
         xyColor: light.color?.xy ? { x: light.color.xy.x, y: light.color.xy.y } : null,
-        colorTemperature: light.color?.temperature?.mirek || null,
-        saturation: light.color?.saturation?.saturation || null,
       };
 
       console.log(`🔆 Light ${index + 1}:`);
@@ -35,12 +33,6 @@ export async function getLights(axiosInstance: AxiosInstance): Promise<any[]> {
 
       if (lightObj.xyColor) {
         console.log("🌈 XY Color:", `(${lightObj.xyColor.x}, ${lightObj.xyColor.y})`);
-      }
-      if (lightObj.colorTemperature) {
-        console.log("🌡️ Color Temperature:", `${lightObj.colorTemperature} Mired`);
-      }
-      if (lightObj.saturation) {
-        console.log("🎨 Saturation:", `${lightObj.saturation} %`);
       }
 
       console.log("---------------------------------------------------");

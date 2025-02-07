@@ -14,8 +14,8 @@ import { setScene } from "./methods/setScene.js"
 import { setLight } from "./methods/setLight.js";
 import { setGradient } from "./methods/setGradient.js";
 import { getGroups } from "./methods/getGroups.js";
+import { setGroup } from "./methods/setGroup.js";
 import { setGroups } from "./methods/setGroups.js";
-
 
 export class HueIntegration {
   private apiKey: string;
@@ -44,20 +44,20 @@ export class HueIntegration {
     return connectBridge(appName, this.bridgeIp);
   }
 
-  async getBridgeInfo(): Promise<void> {
-    await getBridgeInfo(this.axiosInstance);
+  async getBridgeInfo(): Promise<any> {
+    return await getBridgeInfo(this.axiosInstance); 
   }
 
-  async getTemperature(): Promise<void> {
-    await getTemperature(this.axiosInstance);
+  async getTemperature(): Promise<any> {
+    return await getTemperature(this.axiosInstance); 
   }
 
-  async getMLightLevel(): Promise<void> {
-    await getMLightLevel(this.axiosInstance);
+  async getMLightLevel(): Promise<any> {
+    return await getMLightLevel(this.axiosInstance);
   }
 
-  async getLights(): Promise<void> {
-    await getLights(this.axiosInstance);
+  async getLights(): Promise<any> {
+    return await getLights(this.axiosInstance); 
   }
 
   async getRooms(): Promise<any[]> { 
@@ -84,6 +84,7 @@ export class HueIntegration {
   async getGroups(): Promise<any[]> {
     return await getGroups(this.axiosInstance);
   }
+
   async setGroups(
     groupIds: string[],
     brightness?: number,
@@ -91,6 +92,15 @@ export class HueIntegration {
     isOn?: boolean
   ): Promise<boolean> {
     return await setGroups(this.axiosInstance, groupIds, brightness, xyColor, isOn);
+  }
+
+  async setGroup(
+    groupId: string,
+    brightness?: number,
+    xyColor?: { x: number; y: number },
+    isOn?: boolean
+  ): Promise<boolean> {
+    return await setGroup(this.axiosInstance, groupId, brightness, xyColor, isOn);
   }
 
   startEventStream(

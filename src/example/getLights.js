@@ -1,4 +1,4 @@
-import { HueIntegration } from "../../dist/esm/index.js";
+import { HueIntegration } from "../../dist/index.js";
 
 const main = async () => {
   const hue = new HueIntegration("Y3upVNys0bwYwTCC20KipdZYvWaks5fioS8xiOHu");
