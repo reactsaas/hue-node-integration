@@ -17,7 +17,7 @@ export async function getMLightLevel(axiosInstance: AxiosInstance): Promise<any[
     const sensors = response.data.data;
 
     if (!sensors || sensors.length === 0) {
-      console.log("🔆 No light level sensors found on the Hue Bridge.");
+      console.log("No light level sensors found on the Hue Bridge.");
       return [];
     }
 
@@ -33,10 +33,10 @@ export async function getMLightLevel(axiosInstance: AxiosInstance): Promise<any[
         lightLevel: sensor.light?.light_level ?? "N/A",
       };
 
-      console.log(`🔆 Sensor ${index + 1}:`);
-      console.log("🆔 ID:", sensorObj.id);
-      console.log("📛 Device Name:", sensorObj.deviceName);
-      console.log("🌞 Light Level:", sensorObj.lightLevel, "lx");
+      console.log(`Sensor ${index + 1}:`);
+      console.log("ID:", sensorObj.id);
+      console.log("Device Name:", sensorObj.deviceName);
+      console.log("Light Level:", sensorObj.lightLevel, "lx");
       console.log("---------------------------------------------------");
 
       return sensorObj;
@@ -44,7 +44,7 @@ export async function getMLightLevel(axiosInstance: AxiosInstance): Promise<any[
 
     return sensorData;
   } catch (err: any) {
-    console.error("❌ Failed to retrieve light level sensors:", err.message);
+    console.error(" Failed to retrieve light level sensors:", err.message);
     if (err.response) {
       console.error("Response Data:", err.response.data);
     }

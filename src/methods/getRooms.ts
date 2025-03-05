@@ -22,11 +22,11 @@ export async function getRooms(axiosInstance: AxiosInstance): Promise<any[]> {
         services: room.services?.map((s: any) => s.rtype).join(", ") || "N/A",
       };
 
-      console.log(`🏠 Room ${index + 1}:`);
-      console.log("🆔 ID:", roomObj.id);
-      console.log("📛 Name:", roomObj.name);
-      console.log("🔘 Type:", roomObj.type);
-      console.log("🔗 Services:", roomObj.services);
+      console.log(` Room ${index + 1}:`);
+      console.log(" ID:", roomObj.id);
+      console.log(" Name:", roomObj.name);
+      console.log(" Type:", roomObj.type);
+      console.log(" Services:", roomObj.services);
       console.log("---------------------------------------------------");
 
       return roomObj;

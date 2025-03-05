@@ -1,6 +1,6 @@
 {
   "name": "@reactsaaskit/hue-node-integration",
-  "version": "0.0.6",
+  "version": "0.0.28",
   "description": "A TypeScript package for Philips Hue Bridge Api v2 integration for Node.js. Supports esm and cjs",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -15,6 +15,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
+    "deploy": "npm publish --access public",
     "start": "node dist/index.js",
     "clean": "rm -rf dist"
   },

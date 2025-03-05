@@ -8,7 +8,7 @@ export const startEventStream = (
 ): { close: () => void } => {
   const url = `/eventstream/clip/v2`;
 
-  console.log(`📡 Connecting to EventStream at https://${bridgeIp}${url}...`);
+  console.log(`Connecting to EventStream at https://${bridgeIp}${url}...`);
 
   let isClosed = false;
   let buffer = "";
@@ -28,7 +28,7 @@ export const startEventStream = (
   };
 
   const req = https.request(options, (res) => {
-    console.log("✅ EventStream connected successfully.");
+    console.log("EventStream connected successfully.");
 
     res.on("data", (chunk: Buffer) => {
       if (isClosed) return;
@@ -59,7 +59,7 @@ export const startEventStream = (
           try {
             const parsedData = JSON.parse(jsonString);
 
-            // ✅ Handle **multiple** events in a single batch properly
+            // Handle **multiple** events in a single batch properly
             if (Array.isArray(parsedData)) {
               parsedData.forEach((event) => {
                 onMessage({ eventType, eventId, event });
@@ -68,7 +68,7 @@ export const startEventStream = (
               onMessage({ eventType, eventId, parsedData });
             }
           } catch (err) {
-            console.error("❌ Error parsing event data:", err);
+            console.error("Error parsing event data:", err);
           }
         }
       }
@@ -85,13 +85,13 @@ export const startEventStream = (
     });
 
     res.on("error", (error: any) => {
-      console.error("❌ Error in EventStream:", error);
+      console.error(" Error in EventStream:", error);
       if (onError) onError(error);
     });
   });
 
   req.on("error", (error) => {
-    console.error("❌ Failed to connect to EventStream:", error);
+    console.error("Failed to connect to EventStream:", error);
     if (onError) onError(error);
 
     // Retry connection

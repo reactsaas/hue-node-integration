@@ -9,7 +9,7 @@ export async function setGroups(
   isOn?: boolean // Optional On/Off state
 ): Promise<boolean> {
   try {
-    console.log(`💡 Setting multiple groups (${groupIds.length} groups)...`);
+    console.log(`Setting multiple groups (${groupIds.length} groups)...`);
 
     // Track the status of all updates
     const results = await Promise.all(
@@ -23,7 +23,7 @@ export async function setGroups(
     // Log results
     results.forEach(({ groupId, success }) => {
       if (success) {
-        console.log(`✅ Group ${groupId} updated successfully!`);
+        console.log(`Group ${groupId} updated successfully!`);
       } else {
         console.log(`❌ Failed to update Group ${groupId}.`);
       }

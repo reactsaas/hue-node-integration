@@ -1,52 +1,76 @@
 import { AxiosInstance } from "axios";
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+
+/**
+ * @deprecated Use `setLightPower` and `setLightColor` instead.
+ * 
+ * Warning: Setting color and on/off state together while the light is off might not always work.
+ * Turning on the light first and then changing its color is recommended.
+ */
 export async function setLight(
   axiosInstance: AxiosInstance,
   lightId: string,
-  brightness?: number,  // Optional brightness (0-100)
-  xyColor?: { x: number; y: number },  // Optional XY color
-  isOn?: boolean // Optional On/Off state
+  xyColor?: { x: number; y: number }, // Optional XY color
+  isOn?: boolean,                    // Optional On/Off state
+  brightness?: number,               // Optional brightness (0-100)
+  transition?: number                // Optional transition time (verify if in ms or seconds)
 ): Promise<boolean> {
   try {
-    console.log(`💡 Setting Light: ${lightId}`);
-    
-    // Build request payload dynamically based on provided values
     const requestBody: any = {};
 
-    if (brightness !== undefined) {
-      requestBody.dimming = { brightness };
-      console.log(`🔆 Brightness: ${brightness}%`);
-    }
-
-    if (xyColor) {
-      requestBody.color = { xy: { x: xyColor.x, y: xyColor.y } };
-      console.log(`🌈 Color XY: (${xyColor.x}, ${xyColor.y})`);
-    }
-
+    // If isOn is defined, handle it separately
     if (isOn !== undefined) {
       requestBody.on = { on: isOn };
-      console.log(`💡 Light State: ${isOn ? "ON" : "OFF"}`);
+
+      if (isOn) {
+        // When turning on, include brightness, color, and dynamics if provided
+        if (brightness !== undefined) {
+          // Optionally, ensure brightness is an integer if required by the API
+          requestBody.dimming = { brightness };
+        }
+        if (xyColor) {
+          requestBody.color = { xy: { x: xyColor.x, y: xyColor.y } };
+        }
+        if (transition && transition > 0) {
+          // If the API expects seconds, convert to the proper unit here
+          requestBody.dynamics = { duration: transition };
+        }
+      }
+      // When turning off, we intentionally omit brightness/color/dynamics to avoid conflicts
+    } else {
+      // If isOn is not specified, update other parameters if provided
+      if (brightness !== undefined) {
+        requestBody.dimming = { brightness };
+      }
+      if (xyColor) {
+        requestBody.color = { xy: { x: xyColor.x, y: xyColor.y } };
+      }
+      if (transition && transition > 0) {
+        requestBody.dynamics = { duration: transition };
+      }
     }
 
     if (Object.keys(requestBody).length === 0) {
-      console.error("⚠️ No values provided for update!");
+      console.error("No values provided for update!");
       return false;
     }
 
-    console.log("🚀 Sending request to update light...");
     const response = await axiosInstance.put(`/light/${lightId}`, requestBody);
 
     if (response.status === 200) {
-      console.log(`✅ Light Updated: ${lightId}`);
       return true;
     } else {
-      console.warn(`⚠️ Unexpected response status: ${response.status}`);
+      console.warn(`Unexpected response status: ${response.status}`);
       return false;
     }
   } catch (err: any) {
-    console.error(`❌ Failed to update light (${lightId}):`, err.message);
+    console.error(`Failed to update light (${lightId}):`, err.message);
     if (err.response) {
-      console.error("📜 Response Data:", JSON.stringify(err.response.data, null, 2));
+      console.error("Response Data:", JSON.stringify(err.response.data, null, 2));
     }
     return false;
   }
